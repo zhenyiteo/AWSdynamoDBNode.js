@@ -1,0 +1,53 @@
+<html>
+  <head>
+    <title>Form</title>
+    <script>
+      async function submitMessage() {
+        var name = document.getElementById("name").value;
+        var contact = document.getElementById("contact").value;
+        var email = document.getElementById("email").value;
+        var website = document.getElementById("website").value;
+
+        var response = await fetch('https://oxvie2kqq5.execute-api.us-east-1.amazonaws.com/prod/shippername', {
+          method: 'POST',
+          body: JSON.stringify({
+            "name": name,
+            "email": email,
+            "contact": contact,
+            "website": website
+          })
+        });
+
+        if (response.ok) {
+          var responseData = await response.json();
+          console.log(responseData);
+          alert("Form submitted successfully!");
+          document.getElementById("name").value = "";
+          document.getElementById("contact").value = "";
+          document.getElementById("email").value = "";
+          document.getElementById("website").value = "";
+        } else {
+          console.log('Error:', response.statusText);
+          alert("Form submission failed. Please try again later.");
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <form onsubmit="submitMessage();return false;">
+      <label for="name">Name:</label><br>
+      <input type="text" id="name" name="name" value=""/><br>
+
+      <label for="email">Email:</label><br>
+      <input type="text" id="email" name="email" value=""/><br>
+
+      <label for="contact">Contact:</label><br>
+      <input type="text" id="contact" name="contact" value=""/><br>
+
+      <label for="website">Website:</label><br>
+      <input type="website" id="website" name="website" value=""/><br>
+
+      <input type="submit" value="Submit">
+    </form> 
+  </body>
+</html>
